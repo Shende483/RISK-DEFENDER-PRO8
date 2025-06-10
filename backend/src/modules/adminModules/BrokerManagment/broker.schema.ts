@@ -8,15 +8,20 @@ export class Broker {
   @Prop({ required: true })
   name: string;
 
+    @Prop({ required: true, unique: true, lowercase: true })
+  key: string;
+
+
   @Prop({ default: 'active', enum: ['active', 'inactive'] })
   status?: string;
 
+
   @Prop({
-    type: MongooseSchema.Types.ObjectId,
+    //type: MongooseSchema.Types.ObjectId,
     ref: 'MarketType',
     required: true,
   })
-  marketTypeId: MongooseSchema.Types.ObjectId;
+  marketTypeId: string;
 
   @Prop()
   createdDate: Date;

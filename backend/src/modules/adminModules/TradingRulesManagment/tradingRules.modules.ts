@@ -19,3 +19,5 @@ import { TradingRulesController } from './tradingRules.controller';
   providers: [TradingRulesService],
 })
 export class TradingRulesModule {} 
+
+

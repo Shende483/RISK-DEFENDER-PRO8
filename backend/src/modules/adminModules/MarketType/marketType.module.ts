@@ -17,3 +17,6 @@ import { MarketTypeService } from './marketType.service';
   providers: [MarketTypeService],
 })
 export class AdminMarketTypeModule {}
+
+
+

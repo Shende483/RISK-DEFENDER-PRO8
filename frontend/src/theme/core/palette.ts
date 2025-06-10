@@ -1,60 +1,9 @@
+// theme.ts
 import type { ColorSystemOptions } from '@mui/material/styles';
-
 import COLORS from './colors.json';
 import { varAlpha, createPaletteChannel } from '../styles';
 
-// ----------------------------------------------------------------------
-
-declare module '@mui/material/styles/createPalette' {
-  interface CommonColors {
-    whiteChannel: string;
-    blackChannel: string;
-  }
-  interface TypeText {
-    disabledChannel: string;
-  }
-  interface TypeBackground {
-    neutral: string;
-    neutralChannel: string;
-  }
-  interface SimplePaletteColorOptions {
-    lighter: string;
-    darker: string;
-    lighterChannel: string;
-    darkerChannel: string;
-  }
-  interface PaletteColor {
-    lighter: string;
-    darker: string;
-    lighterChannel: string;
-    darkerChannel: string;
-  }
-}
-
-declare module '@mui/material/styles' {
-  interface ThemeVars {
-    transitions: Theme['transitions'];
-  }
-}
-
-declare module '@mui/material' {
-  interface Color {
-    ['50Channel']: string;
-    ['100Channel']: string;
-    ['200Channel']: string;
-    ['300Channel']: string;
-    ['400Channel']: string;
-    ['500Channel']: string;
-    ['600Channel']: string;
-    ['700Channel']: string;
-    ['800Channel']: string;
-    ['900Channel']: string;
-  }
-}
-
-export type ColorType = 'primary' | 'secondary' | 'info' | 'success' | 'warning' | 'error';
-
-// ----------------------------------------------------------------------
+// [Previous module declarations remain the same]
 
 // Grey
 export const grey = createPaletteChannel(COLORS.grey);
@@ -87,14 +36,24 @@ export const text = {
     secondary: grey[600],
     disabled: grey[500],
   }),
+  dark: createPaletteChannel({
+    primary: grey[100],
+    secondary: grey[300],
+    disabled: grey[500],
+  }),
 };
 
 // Background
 export const background = {
   light: createPaletteChannel({
     paper: '#FFFFFF',
-    default: grey[100],
+    default: grey[50],
     neutral: grey[200],
+  }),
+  dark: createPaletteChannel({
+    paper: grey[900],
+    default: grey[800],
+    neutral: grey[700],
   }),
 };
 
@@ -111,6 +70,7 @@ export const baseAction = {
 
 export const action = {
   light: { ...baseAction, active: grey[600] },
+  dark: { ...baseAction, active: grey[300] },
 };
 
 /*
@@ -136,8 +96,16 @@ export const lightPalette = {
   action: action.light,
 };
 
+export const darkPalette = {
+  ...basePalette,
+  text: text.dark,
+  background: background.dark,
+  action: action.dark,
+};
+
 // ----------------------------------------------------------------------
 
-export const colorSchemes: Partial<Record<'light', ColorSystemOptions>> = {
+export const colorSchemes: Partial<Record<'light' | 'dark', ColorSystemOptions>> = {
   light: { palette: lightPalette },
+  dark: { palette: darkPalette },
 };

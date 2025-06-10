@@ -27,8 +27,8 @@ import {
   TableContainer,
 } from '@mui/material';
 
-import MarketTypeService from '../../../Services/MarketTypeService';
-import TradingRuleService from '../../../Services/TradingRuleService';
+import MarketTypeService from '../../../Services/api-services/MarketTypeService';
+import TradingRuleService from '../../../Services/api-services/TradingRuleService';
 
 import type { TradingRuletype, TradingRuleDetails } from '../../../Types/TradingRuleType';
 
@@ -186,19 +186,19 @@ export default function TradingRule() {
   const handleDeleteTradingRule = async (id: string) => {
     const confirmDelete = window.confirm('Are you sure you want to delete this plan?');
 
-    if (!confirmDelete)  return 
-      try {
-        const response = await TradingRuleService.deleteTradingRules(id);
-        if (response.success) {
-          setTraderDetails((prevTraders) => prevTraders.filter((traders) => traders._id !== id));
-        } else {
-          alert('Failed to delete the plan. Please try again later.');
-        }
-      } catch (catchError: any) {
-        console.error('Error deleting the plan:', catchError);
-        alert('An error occurred while deleting the plan.');
+    if (!confirmDelete) return
+    try {
+      const response = await TradingRuleService.deleteTradingRules(id);
+      if (response.success) {
+        setTraderDetails((prevTraders) => prevTraders.filter((traders) => traders._id !== id));
+      } else {
+        alert('Failed to delete the plan. Please try again later.');
       }
-    
+    } catch (catchError: any) {
+      console.error('Error deleting the plan:', catchError);
+      alert('An error occurred while deleting the plan.');
+    }
+
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -219,9 +219,9 @@ export default function TradingRule() {
       }
       setTrader(initialData);
       setSelectedRuleType('');
-    setNewRule('');
-    setMessage('');
-    fetchTradingRule();
+      setNewRule('');
+      setMessage('');
+      fetchTradingRule();
     } catch (err: any) {
       console.error('Error creating trading rule:', err.response?.data?.message);
       setMessage(err.response?.data?.message || 'Failed to create trading rule.');
@@ -340,7 +340,7 @@ export default function TradingRule() {
           </Button>
         </form>
       </Paper>
-      <Typography variant="h6" align="center" sx={{mt: 5 }} gutterBottom>
+      <Typography variant="h6" align="center" sx={{ mt: 5 }} gutterBottom>
         Trading Rules
       </Typography>
       <TableContainer component={Paper}>

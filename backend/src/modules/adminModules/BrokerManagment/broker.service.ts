@@ -7,10 +7,8 @@ import { Response } from 'express';
 import { MarketType } from '../MarketType/marketType.schema';
 import { UpdateBrokerDto } from './dto/updatebroker.dto';
 import { Types } from 'mongoose';
-import {
-  BrokerAccount,
-  BrokerAccountDocument,
-} from 'src/modules/BrokerAccountManagement/brokerAcount.schema';
+import { BrokerAccount, BrokerAccountDocument } from 'src/modules/sidebar-management/trading-dashboard-management/trading-dashboard.schema';
+
 const ObjectId = Types.ObjectId;
 
 export interface BrokerResponse {
@@ -187,7 +185,7 @@ export class BrokersService {
           );
           return {
             statusCode: 401,
-            brokerAccountName: account.brokerAccountName,
+            brokerAccountName: account.subAccountName,
             brokerName: 'Unknown Broker',
             message: 'Broker reference missing',
             success: false,
@@ -196,7 +194,7 @@ export class BrokersService {
         console.log('brokerAccounts', brokerAccounts);
         return {
           statusCode: 200,
-          brokerAccountName: account.brokerAccountName,
+          brokerAccountName: account.subAccountName,
           brokerName: account.brokerId.name,
           success: true,
         };

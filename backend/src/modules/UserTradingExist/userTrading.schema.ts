@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Schema as MongooseSchema } from 'mongoose';
 @Schema({ timestamps: true, collection: 'ActualUserTradingExistingData' })
+
 export class UserExitAccount {
   @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Broker', required: true })
   brokerId: MongooseSchema.Types.ObjectId;

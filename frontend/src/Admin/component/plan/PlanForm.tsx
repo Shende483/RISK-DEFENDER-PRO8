@@ -25,7 +25,7 @@ import {
   CircularProgress,
 } from '@mui/material';
 
-import PlanService from '../../../Services/PlanService';
+import PlanService from '../../../Services/api-services/plan-info-service/add-broker-plan-service';
 
 import type { PlanManagetype } from '../../../Types/PlanType';
 
@@ -43,6 +43,7 @@ const initialData: PlanManagetype = {
 
 // -----------fetch dubscription plan-------------
 export interface SubscriptionPlan {
+  gstRate: number;
   name: string;
   description: string;
   price: number;
@@ -240,19 +241,19 @@ export default function PlanForm() {
   return (
     <div>
       <Box
-       sx={{ maxWidth: 1000, mx: 'auto', mt: 4, p: 2 }}
+        sx={{ maxWidth: 1000, mx: 'auto', mt: 4, p: 2 }}
       >
         <Paper
-         elevation={3}
-         sx={{
-           p: 4,
-           minWidth: { xs: '90%', sm: '50%', md: '30%' },
-           bgcolor: 'white',
-           borderRadius: 2,
-           display: 'flex',
-           flexDirection: 'column',
-           gap: 2,
-         }}
+          elevation={3}
+          sx={{
+            p: 4,
+            minWidth: { xs: '90%', sm: '50%', md: '30%' },
+            bgcolor: 'white',
+            borderRadius: 2,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 2,
+          }}
         >
           <Typography variant="h5" align="center" gutterBottom>
             Plan Details

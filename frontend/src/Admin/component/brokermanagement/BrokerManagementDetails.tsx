@@ -24,8 +24,8 @@ import {
   TableContainer,
 } from '@mui/material';
 
-import MarketTypeService from '../../../Services/MarketTypeService';
-import BrokerManagmentService from '../../../Services/BrokerManagementService';
+import MarketTypeService from '../../../Services/api-services/MarketTypeService';
+import BrokerManagmentService from '../../../Services/api-services/BrokerManagementService';
 
 import type { BrokerManagmentdetails } from '../../../Types/BrokerManagementTypes';
 

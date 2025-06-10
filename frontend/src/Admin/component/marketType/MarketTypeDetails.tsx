@@ -20,7 +20,7 @@ import {
   TableContainer,
 } from '@mui/material';
 
-import MarketTypeService from '../../../Services/MarketTypeService';
+import MarketTypeService from '../../../Services/api-services/MarketTypeService';
 
 import type { MarketTypeList, MarketTypeDetails } from '../../../Types/MarketTypes';
 

@@ -12,6 +12,12 @@ export class CreateBrokerDto {
   @ApiProperty({})
   name: string;
 
+
+    @IsNotEmpty()
+  @IsString()
+  @ApiProperty({})
+  key: string;
+
   @IsOptional()
   @IsString()
   @ApiProperty({})

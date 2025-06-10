@@ -1,7 +1,4 @@
 
-
-
-
 import { JwtModuleOptions } from '@nestjs/jwt';
 import { registerAs } from '@nestjs/config';
 
@@ -11,3 +8,4 @@ export default registerAs('jwt', (): JwtModuleOptions => ({
     expiresIn: process.env.JWT_EXPIRES_IN ,
   },
 }));
+

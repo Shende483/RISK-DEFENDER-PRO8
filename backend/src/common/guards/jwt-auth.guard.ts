@@ -1,5 +1,4 @@
 
-/*
 import { Injectable, CanActivate, ExecutionContext, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
@@ -9,63 +8,18 @@ export class JwtAuthGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
-    const token = request.headers.authorization?.split(' ')[1];
 
-    console.log("🟢 Received Token:", token); // Debug log to ensure token is received
-
-    if (!token) {
-     // throw new UnauthorizedException('❌ Token is required');
-      console.log("❌ Token is required"); // 
-    }
-
-    try {
-      const decoded = await this.jwtService.verifyAsync(token);
-
-      if (!decoded) {
-        throw new UnauthorizedException('❌ Invalid token payload');
-      }
-
-      console.log("✅ Decoded Token:", decoded); // Confirm token decoding success
-      
-      // Attach userId and email directly to the request object
-      request['user'] = {
-        userId: decoded.id,
-        email: decoded.email
-      };
-
-      return true;
-    } catch (error) {
-      console.error("❌ Token Verification Error:", error.message); // Detailed error log
-      throw new UnauthorizedException('❌ User Not sign in  or expired token');
-    }
-  }
-}
-
-
-*/
-
-
-
-
-
-
-import { Injectable, CanActivate, ExecutionContext, UnauthorizedException } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
-
-@Injectable()
-export class JwtAuthGuard implements CanActivate {
-  constructor(private jwtService: JwtService) {}
-
-  async canActivate(context: ExecutionContext): Promise<boolean> {
-    const request = context.switchToHttp().getRequest();
+    //this real ip is work when appplication is live , anyone sen dreq using postman then we get device ip and ntwrk isp ip 
+   // by using this we use rate liming concept 
+  //  const realip=request.Ip
     const response = context.switchToHttp().getResponse();
     const token = request.headers.authorization?.split(' ')[1];
 
     console.log("🟢 Received Token:", token); // Debug log to ensure token is received
 
     if (!token) {
-      response.status(401).json({
-        statusCode: 401,
+      response.status(200).json({
+        statusCode: 301,
         message: '❌ Token is required, Please login First...',
         success: false
       });
@@ -76,8 +30,8 @@ export class JwtAuthGuard implements CanActivate {
       const decoded = await this.jwtService.verifyAsync(token);
 
       if (!decoded) {
-        response.status(401).json({
-          statusCode: 401,
+        response.status(200).json({
+          statusCode: 302,
           message: '❌ Invalid token payload',
           success: false
         });
@@ -94,8 +48,8 @@ export class JwtAuthGuard implements CanActivate {
       return true;
     } catch (error) {
       console.error("❌ Token Verification Error:", error.message); // Detailed error log
-      response.status(401).json({
-        statusCode: 401,
+      response.status(200).json({
+        statusCode: 303,
         message: `❌ Token Verification Error:", ${error.message}`,
         success: false
       });

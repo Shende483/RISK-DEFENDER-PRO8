@@ -61,6 +61,9 @@ export class TradingRulesController {
     return this.tradingRulesService.getRulesByMarketTypeId(marketTypeId);
   }
 
+
+  
+
   @Delete('deleteRules/:id')
   async deleteRules(@Param('id') id: string, @Res() res: Response) {
     return this.tradingRulesService.deleteTradingRules(id, res);
